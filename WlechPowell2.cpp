@@ -1,10 +1,10 @@
 #include <iostream>
 #include <algorithm>
 #include <cstring>
-const int x = 10;   //vertex no.
+const int x = 5;   //vertex no.
 
 
-const int colors[x] = { 0,1,2,3,4,5,6,7,8,9 };
+const int colors[x] = { 0,1,2,3,4};
 int counter = 0;
 bool problem = false;
 
@@ -22,19 +22,14 @@ bool problem = false;
 */
 
 bool graf[x][x] = { //adj. matrix
- 0,1,1,1,0,0,0,0,0,0,
- 1,0,1,0,0,0,0,0,0,0,
- 1,1,0,1,1,0,0,0,0,0,
- 1,0,1,0,0,1,0,0,0,0,
- 0,0,1,0,0,1,1,0,1,0,
- 0,0,0,1,1,0,0,0,1,1,
- 0,0,0,0,1,0,0,1,0,0,
- 0,0,0,0,0,0,1,0,1,0,
- 0,0,0,0,1,0,0,1,0,1,
- 0,0,0,0,0,1,0,0,1,0
+ 0,1,0,1,1,
+ 1,0,1,1,0,
+ 0,1,0,1,1,
+ 1,1,1,0,0,
+ 1,0,1,0,0,
 };
 
-char vertex_names[x] = {'A','B','C','D','E','F','G','J','K','L'};
+char vertex_names[x] = {'A','B','C','D','E'};
 int rate_list[x]; //{ 0,0,0,0,0,0,0,0,0,0};
 
 struct Graf {
