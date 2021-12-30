@@ -10,7 +10,7 @@ public class GraphColoring
     private int V, jumlahwarna;
     private int[] color; 
     private int[][] graph;
- 
+    
     /** Function to assign color **/
     public void graphColor(int[][] g, int n)
     {
@@ -59,11 +59,14 @@ public class GraphColoring
     }
     /** display solution **/
     public void display()
-    {
+    {   
+
+        String [] warna = {"merah","biru","kuning","hitam","putih"};
        // System.out.print("\nColors : ");
         for (int i = 0; i < V; i++)
            // System.out.print("\nvertex " + i);
-            System.out.println("vertex "+ (i+1) + " warna :"+ color[i] +" ");
+           
+            System.out.println("vertex "+ (i+1) + " warna :"+ warna[color[i]] +" ");
         System.out.println();
     }    
     /** Main function **/
