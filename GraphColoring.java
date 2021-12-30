@@ -9,19 +9,19 @@ public class GraphColoring
 {    
     int V, jumlahwarna;
     int[] idxwarna; 
-    int[][] matriks;
+    
 
     /** Function to assign color **/
-    public void graphColor(int[][] g, int n)
+    public void graphColor(int c,int[][] matriks)
     {
-        V = g.length;//panjang matrix
+        int n = c;
+        V = matriks.length;//panjang matrix
         jumlahwarna = n;//banyaknya warna
         idxwarna = new int[V];
-        matriks = g;
 
         try
         {
-            solve(0);
+            solve(0, matriks);
             System.out.println("Tidak ada Solusi");
         }
         catch (Exception e)
@@ -32,7 +32,7 @@ public class GraphColoring
     }
 
     /** method untuk pewarnaan secara rekursive **/
-    public void solve(int v) throws Exception
+    public void solve(int v, int[][] matriks) throws Exception
     {
         /** base case - solution found **/
         if (v == idxwarna.length){
@@ -42,11 +42,11 @@ public class GraphColoring
         /** try all colours **/
         for (int c = 1; c <= jumlahwarna; c++)
         {
-            while(isPossible(v,c)==true)
+            while(isPossible(v,c,matriks)==true)
             {
                 /** assign and proceed with next vertex **/
                 idxwarna[v] = c;
-                solve(v+1);
+                solve(v+1,matriks);
                 /** wrong assignement **/
                 idxwarna[v] = 0;
             }
@@ -54,7 +54,7 @@ public class GraphColoring
     }
 
     /** berfungsi untuk memeriksa apakah valid untuk membagikan warna itu ke simpul **/
-    public boolean isPossible(int v, int c)
+    public boolean isPossible(int v, int c,int[][] matriks)
     {
         boolean posible = true;
         for (int j = 0; j < idxwarna.length; j++){
@@ -70,7 +70,7 @@ public class GraphColoring
     public void display()
     {   
 
-        String [] warna = {"merah","biru","kuning","hitam","putih"};
+        String [] warna = {"hitam","merah","biru","kuning","putih"};
         // System.out.print("\nColors : ");
         for (int i = 0; i < idxwarna.length; i++){
             System.out.println("vertex "+ (i+1) + " warna :"+ warna[idxwarna[i]] +" ");
@@ -91,10 +91,11 @@ public class GraphColoring
         /** input banyak vertices **/
         System.out.println("Enter number of verticesz\n");
         int len = sc.nextInt();
-
+        
         /** get graph **/
         System.out.println("\nEnter matrix\n");
-        int[][] matriks = new int[len][len];
+        int[][] matriks;
+        matriks = new int[len][len];
         for (int i = 0; i < len; i++){
             for (int j = 0; j < len; j++){
                 matriks[i][j] = sc.nextInt();
@@ -104,7 +105,7 @@ public class GraphColoring
         System.out.println("\nEnter number of colors");
         int c = sc.nextInt();
 
-        gc.graphColor(matriks, c);
+        gc.graphColor(c,matriks);
 
     }
 }
