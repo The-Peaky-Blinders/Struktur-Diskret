@@ -6,33 +6,36 @@ import java.util.Scanner;
 
 /** Class GraphColoring **/
 public class GraphColoring
-{    
-    int V, jumlahwarna;
-    int[] idxwarna; 
+{     
+    
+     
     
 
     /** Function to assign color **/
     public void graphColor(int c,int[][] matriks)
     {
         int n = c;
+        int jumlahwarna;
+        int V;
         V = matriks.length;//panjang matrix
         jumlahwarna = n;//banyaknya warna
+        int[] idxwarna;
         idxwarna = new int[V];
-
+        
         try
         {
-            solve(0, matriks);
+            solve(0, matriks,idxwarna,jumlahwarna);
             System.out.println("Tidak ada Solusi");
         }
         catch (Exception e)
         {
             System.out.println("\nSolution exists ");
-            display();
+            display(idxwarna);
         }
     }
 
     /** method untuk pewarnaan secara rekursive **/
-    public void solve(int v, int[][] matriks) throws Exception
+    public void solve(int v, int[][] matriks,int[] idxwarna,int jumlahwarna) throws Exception
     {
         /** base case - solution found **/
         if (v == idxwarna.length){
@@ -42,11 +45,11 @@ public class GraphColoring
         /** try all colours **/
         for (int c = 1; c <= jumlahwarna; c++)
         {
-            while(isPossible(v,c,matriks)==true)
+            while(isPossible(v,c,matriks,idxwarna)==true)
             {
                 /** assign and proceed with next vertex **/
                 idxwarna[v] = c;
-                solve(v+1,matriks);
+                solve(v+1,matriks,idxwarna,jumlahwarna);
                 /** wrong assignement **/
                 idxwarna[v] = 0;
             }
@@ -54,7 +57,7 @@ public class GraphColoring
     }
 
     /** berfungsi untuk memeriksa apakah valid untuk membagikan warna itu ke simpul **/
-    public boolean isPossible(int v, int c,int[][] matriks)
+    public boolean isPossible(int v, int c,int[][] matriks,int[] idxwarna)
     {
         boolean posible = true;
         for (int j = 0; j < idxwarna.length; j++){
@@ -67,7 +70,7 @@ public class GraphColoring
     }
 
     /** display solution **/
-    public void display()
+    public void display(int[] idxwarna)
     {   
 
         String [] warna = {"hitam","merah","biru","kuning","putih"};
