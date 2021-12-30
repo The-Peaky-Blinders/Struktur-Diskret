@@ -1,124 +1,66 @@
-#include <iostream>
-#include <algorithm>
-#include <cstring>
-const int x = 5;   //vertex no.
 
-
-const int colors[x] = { 0,1,2,3,4};
-int counter = 0;
-bool problem = false;
-
-/*  Example graph
-  B      G---------J
- / \      \        |
-       /   \      \       |
-      /     \      \      |
-     A------C-------E-----K
-     \     /       /      |
-      \   /       /       |
-       \ /       /        |
-        D-------F---------L
-
-*/
-
-bool graf[x][x] = { //adj. matrix
- 0,1,0,1,1,
- 1,0,1,1,0,
- 0,1,0,1,1,
- 1,1,1,0,0,
- 1,0,1,0,0,
-};
-
-char vertex_names[x] = {'A','B','C','D','E'};
-int rate_list[x]; //{ 0,0,0,0,0,0,0,0,0,0};
-
-struct Graf {
- char vertex_id[x];
- int vertex_rates[x];
- bool adj[x][x];
- int colors[x];
- bool colored[x];
-};
-
-//welsh powell
-
-void colorIt(Graf g) {
- counter++;
- int biggest=0;
- int temp_rate = 0;
-
- //rate listing from adj matrix (counting edges)
-
- if (counter == 1)
-  for (int i = 0; i < x; i++)
-   for (int j = 0; j < x; j++)
-    if (g.adj[i][j])
-     rate_list[i]++;
-
-
- for (int w = 0; w < x; w++)
-  if (!g.colored[w]) {
-   g.vertex_rates[w] = rate_list[w];
-   if (temp_rate < g.vertex_rates[w]) {
-    temp_rate = g.vertex_rates[w];
-    biggest = w;
-   }
-  }
-
- //coloring biggest one first
-
- g.colors[biggest] = colors[counter];
- std::cout << g.vertex_id[biggest] <<":color "<< g.colors[biggest]<<std::endl;
-
- //coloring which doesn't have path with biggest one
-
- for (int e=0;e < x;e++)
-  if (!g.adj[biggest][e] && biggest!=e && !g.colored[e]) {
-   for (int t = 0; t < x;t++) {
-
-    if(g.adj[e][t] &&g.colors[t]==g.colors[biggest]) problem = true;
-
-     if (t == x - 1 && !problem) {
-      g.colors[e] = colors[counter];
-      std::cout << g.vertex_id[e] <<":color "<< g.colors[e] << std::endl;
-      g.colored[e] = true;
-      problem = false;
-     }
-     else if (t == x - 1) problem = false;
-   }
-  }
-
-  g.colored[biggest] = true;
-
- //somehow it gives sometimes "access violation" error
-
- if (std::all_of(std::begin(g.colored), std::end(g.colored), [](bool i) { return i; })) {
-  std::cout << "Graph full colored" << std::endl;
-  system("pause");
-  exit(EXIT_SUCCESS);
-
- }
-
- else colorIt(g); //recusive because too lazy to sort :)
-
-}
-
-int main()
+/**
+ * Write a description of class main here.
+ *
+ * @author (your name)
+ * @version (a version number or a date)
+ */
+import java.util.Scanner;
+public class peakyBlinders
 {
- Graf graf1;
+    public static void main(String agrs[]) {
+        Scanner sc = new Scanner(System.in);
+        int ukuranM = sc.nextInt();//ukuran matrix
+        int matrixGraf[][] = new int[ukuranM][ukuranM];//arr 2D utk menyimpan matrix graf
+        int arrayEdge[] = new int[ukuranM];
+        for(int i=0; i<ukuranM; i++){
+            for(int j=0; j<ukuranM; j++){
+                matrixGraf[i][j] = sc.nextInt();
+            }
+        }
+        String namaVertex [] = new String[ukuranM];//array untuk menyimpan nama vertex
+        for(int i=0; i<ukuranM; i++){
+            namaVertex [i] = sc.next();
+        }
+        int drjt_Tertinggi[] = new int[ukuranM]; //untuk menyimpan derajat tertinggi;
+        
+        for(int i=0; i<ukuranM; i++){
+            arrayEdge[i] = 0;
+        }
+    }
 
- //init color
+    public static void coloring(int[][]matrixGraf,int ukuranM, int drjt_Tertinggi,int[]arrayEdge){
+        int counter = 0;
+        counter++;
+        drjt_Tertinggi=0;
+        int temp_rate = 0;
 
- for (int y = 0; y < x; y++) {
-  graf1.colors[y] = 99;
-  graf1.colored[y] = false;
- }
+        //menghitung edge
 
- //init graph
- memcpy(&graf1.adj, &graf, sizeof(graf1.adj));
- memcpy(&graf1.vertex_id, &vertex_names, sizeof(graf1.vertex_id));
+        if (counter == 1){
+            for (int i = 0; i < ukuranM; i++){
+                for (int j = 0; j < ukuranM; j++){
+                    if (matrixGraf[i][j]==1){
+                    arrayEdge[i]++;
+                    } 
+                }
 
- colorIt(graf1);
+            }
 
- return 0;
+        }
+
+        for (int k = 0; k < ukuranM; k++){
+            if (!matrixGraf.colored[k]) {
+                matrixGraf.vertex_rates[w] = arrayEdge[k];
+                if (temp_rate < matrixGraf.vertex_rates[k]) {
+                    temp_rate = matrixGraf.vertex_rates[k];
+                    drjt_Tertinggi = k;
+                }
+            }
+        }
+
+        //coloring biggest one first
+        matrixGraf.colors[drjt_Tertinggi] = colors[counter];
+        System.out.print(g.vertex_id[drjt_Tertinggi]+":color "+g.colors[drjt_Tertinggi]<<std::endl);
+    }
 }
