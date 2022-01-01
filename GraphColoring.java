@@ -64,12 +64,36 @@ public class PewarnaanGraph
     //method output
     public void output(int[] idxwarna)
     {   
-
+        String [] temp = new String [idxwarna.length];
         String [] warna = {"hitam","merah","biru","kuning","putih"};
+        int kromatik = 1;
+        temp[0] = warna[idxwarna[0]];
+        //cari bilangan kromatik
+        for (int i = 1; i < idxwarna.length; i++){
+            // System.out.print("\nvertex " + i);
+           //System.out.println(color[i]);
+           boolean hasil = false;
+           if(i>1){
+            temp[i-1] = warna[idxwarna[i-1]];
+        }
+           for(int j = 0; j < temp.length; j++){
+               
+               if(temp[j] == warna[idxwarna[i]]){
+                   hasil = true;
+               }
+           }
+           if(hasil==false){
+               kromatik++;
+
+           }
+        }
         for (int i = 0; i < idxwarna.length; i++){
+            
+
             System.out.println("Vertex "+ (i+1) + ": "+ warna[idxwarna[i]] +" ");
         }
         System.out.println();
+        System.out.println("bilangan kromatik: "+ kromatik);
     }    
 
     //method main
