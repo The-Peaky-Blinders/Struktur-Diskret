@@ -62,17 +62,24 @@ public class gui implements ActionListener {
         comboBox.setBounds(20,300,150,30);
         frame.add(comboBox);
         String vertex[] = {"1", "2", "3", "4", "5"};//isi dari combobox
-
         JComboBox simpul= new JComboBox(vertex);
         simpul.setBounds(150,300,50,30);
+
+        JLabel banyakwarna = new JLabel("banyak warna");
+        banyakwarna.setBounds(20,350,150,30);
+        frame.add(banyakwarna);
+        String warna[] = {"1", "2", "3", "4","5"};
+        JComboBox color = new JComboBox(warna);
+        color.setBounds(150,350,50,30);
+        frame.add(color);
         frame.add(simpul);
 
         //hasil label
         JLabel hasil = new JLabel("hasil");
-        hasil.setBounds(20,400,150,30);
+        hasil.setBounds(20,450,150,30);
         //hasil textfield
         hasilTextField = new JTextField();
-        hasilTextField.setBounds(150,400,150,30);
+        hasilTextField.setBounds(150,450,150,100);
 
         frame.add(hasilTextField);
         frame.add(hasil);
@@ -84,7 +91,7 @@ public class gui implements ActionListener {
 
         //button
         JButton button = new JButton("Start");//buat tombol
-        button.setBounds(100,350,70,30);
+        button.setBounds(100,400,70,30);
         frame.add(button);
 
         //block event
@@ -101,7 +108,7 @@ public class gui implements ActionListener {
             if(userfield.equals("halo")){
                 hasilTextField.setText("helo");
             }else{
-                hasilTextField.setText("kntl");
+                hasilTextField.setText("helo");
             }
             JOptionPane.showMessageDialog(null, "berhasil");
         }else{
