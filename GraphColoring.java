@@ -94,7 +94,49 @@ public class PewarnaanGraph
         }
         System.out.println();
         System.out.println("bilangan kromatik: "+ kromatik);
-    }    
+        System.out.println();
+        int vertex=5;
+        pembagianWaktu(kromatik, idxwarna, vertex, warna);
+
+    }
+
+    public static void pembagianWaktu(int kromatik, int[]idxWarna,int vertex,String[] warna) {
+        int siklus = 235; //siklus normal 235 detik
+        int wLampuHijau = siklus/kromatik;//lama waktu lampu hijau
+        int wLampuMerah = siklus - wLampuHijau;//lama waktu lampu merah
+        int wLampuMerah2 = siklus - 2*wLampuHijau;//lama waktu lampu merah jika vertex memiliki 2 warna
+        String[] vertexWarna = new String[vertex];
+
+        //looping memasukan nama vertex dan warnanya kedalam array 1 dimensi
+        for(int i=0;i<idxWarna.length; i++){
+            vertexWarna[i] = "Vertex "+ (i+1) + ": "+ warna[idxWarna[i]] +" ";
+            if(i==4){//karena vertex 5 mempunyai 2 warna
+                vertexWarna[i] = "Vertex "+ (i+1) + ": "+ warna[idxWarna[i]] +" & " + "kuning";
+            }
+        }
+        //looping pembagian waktu
+        for(int i=0;i<idxWarna.length; i++){
+            if(vertexWarna[i].contains("merah")){
+                if(vertexWarna[i].contains("biru") || vertexWarna[i].contains("kuning")){//kalau vertex i punya 2 warna
+                    System.out.println("Vertex "+(i+1)+": "+ "Lampu Merah = "+wLampuMerah2 +", "+ "Lampu Hijau = "+ wLampuHijau*2);
+                }else{
+                    System.out.println("Vertex "+(i+1)+": "+ "Lampu Merah = "+wLampuMerah +", "+ "Lampu Hijau = "+ wLampuHijau);
+                }
+            }else if(vertexWarna[i].contains("biru")){
+                if(vertexWarna[i].contains("merah") || vertexWarna[i].contains("kuning")){//kalau vertex i punya 2 warna
+                    System.out.println("Vertex "+(i+1)+": "+ "Lampu Merah = "+wLampuMerah2 +", "+ "Lampu Hijau = "+ wLampuHijau*2);
+                }else{
+                    System.out.println("Vertex "+(i+1)+": "+ "Lampu Merah = "+wLampuMerah +", "+ "Lampu Hijau = "+ wLampuHijau);
+                }
+            }else if(vertexWarna[i].contains("kuning")){
+                if(vertexWarna[i].contains("merah") || vertexWarna[i].contains("biru")){//kalau vertex i punya 2 warna
+                    System.out.println("Vertex "+(i+1)+": "+ "Lampu Merah = "+wLampuMerah2 +", "+ "Lampu Hijau = "+ wLampuHijau*2);
+                }else{
+                    System.out.println("Vertex "+(i+1)+": "+ "Lampu Merah = "+wLampuMerah +", "+ "Lampu Hijau = "+ wLampuHijau);
+                }
+            }
+        }
+    }
 
     //method main
     public static void main (String[] args) 
