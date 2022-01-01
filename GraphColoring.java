@@ -3,16 +3,17 @@ import java.util.Scanner;
 public class PewarnaanGraph
 {     
 
-    //method memberi pewarnaan
+    //method untuk memberi pewarnaan
     public void pewarnaanGraph(int banyakWarna,int[][] matriks)
     {
         //menentukan panjang matriks
         int panjangMatriks = matriks.length;
-        
+
         //inisiasi array index warna
         int[] idxwarna;
         idxwarna = new int[panjangMatriks];
 
+        //mengecek apakah solusi bisa didapatkan menggunakan try and catch
         try
         {
             coloring(0, matriks,idxwarna,banyakWarna);
@@ -25,7 +26,7 @@ public class PewarnaanGraph
         }
     }
 
-    //method untuk memeriksa apakah valid untuk membagikan warna itu ke simpul
+    //method untuk memeriksa apakah valid untuk membagikan warna tersebut ke vertex
     public boolean possible(int v, int c,int[][] matriks,int[] idxwarna)
     {
         boolean posible = true;
@@ -40,7 +41,7 @@ public class PewarnaanGraph
     //method pewarnaan
     public void coloring(int v, int[][] matriks,int[] idxwarna,int banyakWarna) throws Exception
     {
-        
+
         //Jika panjang matrix sama dengan banyak vertex maka dapat ditemukan solusinya
         if (v == idxwarna.length){
             throw new Exception("\nAda Solusi\n");
@@ -60,7 +61,6 @@ public class PewarnaanGraph
         }    
     }
 
-
     //method output
     public void output(int[] idxwarna)
     {   
@@ -71,25 +71,24 @@ public class PewarnaanGraph
         //cari bilangan kromatik
         for (int i = 1; i < idxwarna.length; i++){
             // System.out.print("\nvertex " + i);
-           //System.out.println(color[i]);
-           boolean hasil = false;
-           if(i>1){
-            temp[i-1] = warna[idxwarna[i-1]];
-        }
-           for(int j = 0; j < temp.length; j++){
-               
-               if(temp[j] == warna[idxwarna[i]]){
-                   hasil = true;
-               }
-           }
-           if(hasil==false){
-               kromatik++;
+            //System.out.println(color[i]);
+            boolean hasil = false;
+            if(i>1){
+                temp[i-1] = warna[idxwarna[i-1]];
+            }
+            for(int j = 0; j < temp.length; j++){
 
-           }
+                if(temp[j] == warna[idxwarna[i]]){
+                    hasil = true;
+                }
+            }
+            if(hasil==false){
+                kromatik++;
+
+            }
         }
         //menampilkan hasil
         for (int i = 0; i < idxwarna.length; i++){
-            
 
             System.out.println("Vertex "+ (i+1) + ": "+ warna[idxwarna[i]] +" ");
         }
@@ -102,7 +101,7 @@ public class PewarnaanGraph
     {
         //inisiasi Scanner
         Scanner sc = new Scanner(System.in);
-        
+
         //mebuat object pewarnaan graph
         PewarnaanGraph pg = new PewarnaanGraph();
 
@@ -121,7 +120,7 @@ public class PewarnaanGraph
         }
 
         //input banyaknya warna
-        System.out.println("\nBanyaknya Warna:");
+        System.out.println("\nBanyak Warna:");
         int banyakWarna = sc.nextInt();
 
         //memanggil method pewarnaan
