@@ -136,6 +136,7 @@ public class PewarnaanGraph
                 }
             }
         }
+        System.out.println("Total = " + siklus);
     }
 
     //method main
