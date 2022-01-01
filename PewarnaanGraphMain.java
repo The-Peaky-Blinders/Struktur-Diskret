@@ -43,10 +43,7 @@ public class PewarnaanGraphMain
     {
         //inisiasi Scanner
         Scanner sc = new Scanner(System.in);
-
-        //mebuat object pewarnaan graph
-        PewarnaanGraphMain pg = new PewarnaanGraphMain();
-
+        
         //input banyaknya vertex
         System.out.println("Banyak Vertex:");
         int vertex = sc.nextInt();
