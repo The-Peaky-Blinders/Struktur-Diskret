@@ -1,57 +1,32 @@
-/**
- **  Java Program to Implement Graph Coloring Algorithm
- **/
-
 import java.util.Scanner;
 
-/** Class GraphColoring **/
-public class GraphColoring
+public class PewarnaanGraph
 {     
 
-    
-    /** Function to assign color **/
-    public void graphColor(int jmlWarna,int[][] matriks)
+    //method memberi pewarnaan
+    public void pewarnaanGraph(int banyakWarna,int[][] matriks)
     {
+        //menentukan panjang matriks
         int panjangMatriks = matriks.length;
+        
+        //inisiasi array index warna
         int[] idxwarna;
         idxwarna = new int[panjangMatriks];
 
         try
         {
-            coloring(0, matriks,idxwarna,jmlWarna);
-            System.out.println("Tidak ada Solusi");
+            coloring(0, matriks,idxwarna,banyakWarna);
+            System.out.println("\nTidak ada Solusi\n");
         }
         catch (Exception e)
         {
-            System.out.println("Ada Solusi");
-            display(idxwarna);
+            System.out.println("\nAda Solusi\n");
+            output(idxwarna);
         }
     }
 
-    /** method untuk pewarnaan secara rekursive **/
-    public void coloring(int v, int[][] matriks,int[] idxwarna,int jmlWarna) throws Exception
-    {
-        /** base case - solution found **/
-        if (v == idxwarna.length){
-            throw new Exception("Ada Solusi");
-        }//jika panjang matrix sama dengan banyak vertex maka dapat ditemukan solusinya
-
-        /** try all colours **/
-        for (int c = 1; c <= jmlWarna; c++)
-        {
-            while(isPossible(v,c,matriks,idxwarna)==true)
-            {
-                /** assign and proceed with next vertex **/
-                idxwarna[v] = c;
-                coloring(v+1,matriks,idxwarna,jmlWarna);
-                /** wrong assignement **/
-                idxwarna[v] = 0;
-            }
-        }    
-    }
-
-    /** berfungsi untuk memeriksa apakah valid untuk membagikan warna itu ke simpul **/
-    public boolean isPossible(int v, int c,int[][] matriks,int[] idxwarna)
+    //method untuk memeriksa apakah valid untuk membagikan warna itu ke simpul
+    public boolean possible(int v, int c,int[][] matriks,int[] idxwarna)
     {
         boolean posible = true;
         for (int j = 0; j < idxwarna.length; j++){
@@ -62,33 +37,56 @@ public class GraphColoring
         return posible;
     }
 
-    /** display solution **/
-    public void display(int[] idxwarna)
+    //method pewarnaan
+    public void coloring(int v, int[][] matriks,int[] idxwarna,int banyakWarna) throws Exception
+    {
+        
+        //Jika panjang matrix sama dengan banyak vertex maka dapat ditemukan solusinya
+        if (v == idxwarna.length){
+            throw new Exception("\nAda Solusi\n");
+        }
+
+        //Proses pewarnaan
+        for (int c = 1; c <= banyakWarna; c++)
+        {
+            while(possible(v,c,matriks,idxwarna)==true)
+            {
+                //pewarnaan vertex berikutnya
+                idxwarna[v] = c;
+                coloring(v+1,matriks,idxwarna,banyakWarna);
+                //reset
+                idxwarna[v] = 0;
+            }
+        }    
+    }
+
+
+    //method output
+    public void output(int[] idxwarna)
     {   
 
         String [] warna = {"hitam","merah","biru","kuning","putih"};
-        // System.out.print("\nColors : ");
         for (int i = 0; i < idxwarna.length; i++){
-            System.out.println("vertex "+ (i+1) + " warna :"+ warna[idxwarna[i]] +" ");
+            System.out.println("Vertex "+ (i+1) + ": "+ warna[idxwarna[i]] +" ");
         }
         System.out.println();
-        // System.out.print("\nvertex " + i);
-
     }    
 
     //method main
     public static void main (String[] args) 
     {
+        //inisiasi Scanner
         Scanner sc = new Scanner(System.in);
-        /** Make an object of GraphColoring class **/
-        GraphColoring wm = new GraphColoring();
+        
+        //mebuat object pewarnaan graph
+        PewarnaanGraph pg = new PewarnaanGraph();
 
         //input banyaknya vertex
-        System.out.println("Enter number of vertices\n");
+        System.out.println("Banyak Vertex:");
         int vertex = sc.nextInt();
 
         //input matriks
-        System.out.println("\nEnter matrix\n");
+        System.out.println("\nMatriks:\n");
         int[][] matriks;
         matriks = new int[vertex][vertex];
         for (int i = 0; i < vertex; i++){
@@ -97,10 +95,12 @@ public class GraphColoring
             }
         }
 
-        System.out.println("\nEnter number of colors");
-        int jmlWarna = sc.nextInt();
+        //input banyaknya warna
+        System.out.println("\nBanyaknya Warna:");
+        int banyakWarna = sc.nextInt();
 
-        wm.graphColor(jmlWarna,matriks);
+        //memanggil method pewarnaan
+        pg.pewarnaanGraph(banyakWarna,matriks);
 
     }
 }
