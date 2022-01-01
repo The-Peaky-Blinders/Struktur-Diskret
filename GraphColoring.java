@@ -87,6 +87,7 @@ public class PewarnaanGraph
 
            }
         }
+        //menampilkan hasil
         for (int i = 0; i < idxwarna.length; i++){
             
 
