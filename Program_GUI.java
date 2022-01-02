@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.Image;
 import java.awt.Font;
 
-public class gui implements ActionListener {
+public class Program_GUI implements ActionListener {
     JTextField textField;
     // JTextField hasilTextField;
     // JTextField siklusJTextField;
@@ -21,11 +21,11 @@ public class gui implements ActionListener {
     JTextArea siklusJTextField;
 
     public static void main(String[] args) {
-        new gui(); // buat instance
+        new Program_GUI(); // buat instance
 
     }
 
-    public gui() {
+    public Program_GUI() {
         initComponent();
 
     }
@@ -55,7 +55,7 @@ public class gui implements ActionListener {
         label.setFont(new Font("Comic Sans MS", Font.BOLD, 16));
         label.setBounds(200, 20, 950, 30); // set ukuran
         ImageIcon image = new ImageIcon(
-                new ImageIcon("src/logo/peta2.png").getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT));
+                new ImageIcon("src/logo/peta.png").getImage().getScaledInstance(500, 500, Image.SCALE_DEFAULT));
         JLabel icon = new JLabel(image);// masukan label gambar
         icon.setBounds(550, 80, 500, 500);
         // ------------label masukan----------
