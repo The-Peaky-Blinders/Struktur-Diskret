@@ -9,7 +9,7 @@ public class PewarnaanGraph
     public String [] pewarnaanGraph(int banyakWarna,int[][] matriks)
     {
         String []solusi = new String[2];
-        String hasil;
+        
         //menentukan panjang matriks
         int panjangMatriks = matriks.length;
         
@@ -70,6 +70,7 @@ public class PewarnaanGraph
     //method output
     public String output(int[] idxwarna)
     {   
+        
         String hasiloutput = "";
        // String bilangan_kromatik;
         String [] temp = new String [idxwarna.length];
@@ -104,6 +105,46 @@ public class PewarnaanGraph
         hasiloutput += "\n";
         hasiloutput += "Bilangan Kromatik: "+ kromatik;
         return hasiloutput;
+    }
+    public static String pembagianWaktu(int kromatik, int[]idxWarna,int vertex,String[] warna) {
+        String durasi = "";
+        int siklus = 235; //siklus normal 235 detik
+        int wLampuHijau = siklus/kromatik;//lama waktu lampu hijau
+        int wLampuMerah = siklus - wLampuHijau;//lama waktu lampu merah
+        int wLampuMerah2 = siklus - 2*wLampuHijau;//lama waktu lampu merah jika vertex memiliki 2 warna
+        String[] vertexWarna = new String[vertex];
+
+        //looping memasukan nama vertex dan warnanya kedalam array 1 dimensi
+        for(int i=0;i<idxWarna.length; i++){
+            vertexWarna[i] = "Vertex "+ (i+1) + ": "+ warna[idxWarna[i]] +" ";
+            if(i==4){//karena vertex 5 mempunyai 2 warna
+                vertexWarna[i] = "Vertex "+ (i+1) + ": "+ warna[idxWarna[i]] +" & " + "kuning";
+            }
+        }
+        //looping pembagian waktu
+        for(int i=0;i<idxWarna.length; i++){
+            if(vertexWarna[i].contains("merah")){
+                if(vertexWarna[i].contains("biru") || vertexWarna[i].contains("kuning")){//kalau vertex i punya 2 warna
+                    durasi += ("Vertex "+(i+1)+": "+ "Lampu Merah = "+wLampuMerah2 +", "+ "Lampu Hijau = "+ wLampuHijau*2 +"\n");
+                }else{
+                   durasi += ("Vertex "+(i+1)+": "+ "Lampu Merah = "+wLampuMerah +", "+ "Lampu Hijau = "+ wLampuHijau+"\n");
+                }
+            }else if(vertexWarna[i].contains("biru")){
+                if(vertexWarna[i].contains("merah") || vertexWarna[i].contains("kuning")){//kalau vertex i punya 2 warna
+                    durasi +=("Vertex "+(i+1)+": "+ "Lampu Merah = "+wLampuMerah2 +", "+ "Lampu Hijau = "+ wLampuHijau*2+"\n");
+                }else{
+                    durasi +=("Vertex "+(i+1)+": "+ "Lampu Merah = "+wLampuMerah +", "+ "Lampu Hijau = "+ wLampuHijau);
+                }
+            }else if(vertexWarna[i].contains("kuning")){
+                if(vertexWarna[i].contains("merah") || vertexWarna[i].contains("biru")){//kalau vertex i punya 2 warna
+                    durasi +=("Vertex "+(i+1)+": "+ "Lampu Merah = "+wLampuMerah2 +", "+ "Lampu Hijau = "+ wLampuHijau*2+"\n");
+                }else{
+                    durasi +=("Vertex "+(i+1)+": "+ "Lampu Merah = "+wLampuMerah +", "+ "Lampu Hijau = "+ wLampuHijau+"\n");
+                }
+            }
+        }
+       durasi += ("Total = " + siklus +"\n");
+       return durasi;
     }    
 
     //method main
@@ -137,4 +178,5 @@ public class PewarnaanGraph
         pg.pewarnaanGraph(banyakWarna,matriks);
 
     }
+    
 }
