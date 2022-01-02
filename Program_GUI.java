@@ -43,7 +43,7 @@ public class Program_GUI implements ActionListener {
         frame.setVisible(true);// tampil frame
         frame.setLayout(null);// layout manual
 
-        ImageIcon logo = new ImageIcon("src/logo/peaky_blinders.jpg");
+        ImageIcon logo = new ImageIcon("src/logo/kelompok5_peaky_blinders.jpg");
 
         frame.setIconImage(logo.getImage());// set logo
         // ImageIcon image = new ImageIcon("src/logo/peta.jpg");
